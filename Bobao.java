@@ -1,6 +1,6 @@
 public class Bobao extends Personagem {
     public Bobao(int linInicial, int colInicial) {
-        super(30, "Normal", linInicial, colInicial); // int energiaInicial, String imagemInicial,int linInicial,int colInicial
+        super(10, "Normal", linInicial, colInicial); // int energiaInicial, String imagemInicial,int linInicial,int colInicial
     }
 
 
