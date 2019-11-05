@@ -18,10 +18,10 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class Jogo extends Application {
-    public static final int CELL_WIDTH = 20;
-    public static final int CELL_HEIGHT = 20;
-    public static final int NLIN = 10;
-    public static final int NCOL = 10;
+    public static final int CELL_WIDTH = 20; // LARGURA DA CELULA
+    public static final int CELL_HEIGHT = 20; // COMPRIMENTO DA CELULA
+    public static final int NLIN = 10; // numero de linhas de celula
+    public static final int NCOL = 10; // numero de colunas de celulas
 
     public static Jogo jogo = null;
 
@@ -68,6 +68,10 @@ public class Jogo extends Application {
         imagens.put("Morto", aux);
         aux = new Image("file:Imagens\\back.jpg");
         imagens.put("Vazio", aux);
+        aux = new Image("file:Imagens\\img7.jpg");
+        imagens.put("Medico", aux);
+
+
 
         // Armazena a imagem da celula ula
         imagens.put("Null", null);
@@ -103,8 +107,8 @@ public class Jogo extends Application {
         // Cria a lista de personagens
         personagens = new ArrayList<>(NLIN*NCOL);
         
-        // Cria 10 boboes aleatorios
-        for(int i=0;i<10;i++){
+        // Cria 2 boboes aleatorios
+        for(int i=0;i<2;i++){
             // Lembrte: quando um personagem é criado ele se vincula
             // automaticamente na célula indicada nos parametros
             // linha e coluna (ver o construtor de Personagem)
@@ -119,14 +123,27 @@ public class Jogo extends Application {
             }
         }
 
-        // Cria 5 Zumbis aleatórios
-        for(int i=0;i<5;i++){
+        // Cria 2 Zumbis aleatórios
+        for(int i=0;i<2;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
                 int col = random.nextInt(NCOL);
                 if (this.getCelula(lin, col).getPersonagem() == null){
                     personagens.add(new Zumbi(lin,col));
+                    posOk = true;
+                }
+            }
+        }
+
+        // Cria 2 Medicos Aleatorios
+        for(int i=0;i<5;i++){
+            boolean posOk = false;
+            while(!posOk){
+                int lin = random.nextInt(NLIN);
+                int col = random.nextInt(NCOL);
+                if (this.getCelula(lin, col).getPersonagem() == null){
+                    personagens.add(new Medico(lin,col));
                     posOk = true;
                 }
             }
