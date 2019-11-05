@@ -3,13 +3,17 @@ public abstract class Personagem {
     private int energia;
     private boolean infectado;
     private Celula celula;
+    private boolean temArma;
 
     public Personagem(int energiaInicial, String imagemInicial,int linInicial,int colInicial){
         this.imagem = imagemInicial;
         this.energia = energiaInicial;
         Jogo.getInstance().getCelula(linInicial, colInicial).setPersonagem(this);
         this.infectado = false;
+       
     }
+
+    
 
     public int getEnergia(){
         return energia;
