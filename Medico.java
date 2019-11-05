@@ -30,6 +30,9 @@ public class Medico extends Personagem {
 
     @Override
     public void atualizaPosicao() { // ALGORITMO PRA MOVIMENTACAO RANDOM DE UM EM UM
+        if (!this.estaVivo()){
+            return;
+        }else{
         int dirLin = Jogo.getInstance().aleatorio(3)-1;
         int dirCol = Jogo.getInstance().aleatorio(3)-1;
         int oldLin = this.getCelula().getLinha();
@@ -49,10 +52,13 @@ public class Medico extends Personagem {
             Jogo.getInstance().getCelula(lin, col).setPersonagem(this);
         }
     }
+    }
 
     @Override
     public void influenciaVizinhos() {
-        
+        if(!this.estaVivo()){
+            return;
+        }
         int lin = this.getCelula().getLinha();
         int col = this.getCelula().getColuna();
         for(int l=lin-1;l<=lin+1;l++){ // se trocar o condicional do for, aumenta o range de contato 
@@ -64,7 +70,7 @@ public class Medico extends Personagem {
                         // Recupera o personagem da célula vizinha
                         Personagem p = Jogo.getInstance().getCelula(l,c).getPersonagem();
                         // Se não for nulo, infecta
-                        if (p != null && !(p instanceof Zumbi)){
+                        if (p != null && p.estaVivo() &&!(p instanceof Zumbi)){
                             p.cura();
                         }
                     }
