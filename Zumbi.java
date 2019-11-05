@@ -1,10 +1,16 @@
 public class Zumbi extends Personagem {
+
+    private boolean morto = false;
+
     public Zumbi(int linInicial,int colInicial){
         super(10,"Zumbi",linInicial,colInicial);
     }
 
     @Override
     public void atualizaPosicao() {
+        if(!this.estaVivo()){
+            return;
+        }
         int dirLin = Jogo.getInstance().aleatorio(3)-1;
         int dirCol = Jogo.getInstance().aleatorio(3)-1;
         int oldLin = this.getCelula().getLinha();
@@ -27,6 +33,9 @@ public class Zumbi extends Personagem {
 
     @Override
     public void influenciaVizinhos() {
+        if(!this.estaVivo()){
+            return;
+        }
         int lin = this.getCelula().getLinha();
         int col = this.getCelula().getColuna();
         for(int l=lin-1;l<=lin+1;l++){ // se trocar o condicional do for, aumenta o range de contato 
@@ -50,6 +59,9 @@ public class Zumbi extends Personagem {
 
     @Override
     public void verificaEstado() {
-        // Como não sofre influencia de ninguém, o estado nunca muda
+         if (this.getEnergia() == 0) {
+                this.setImage("Morto");
+                this.getCelula().setImageFromPersonagem();
+            }
     }
 }

@@ -5,9 +5,31 @@ public class Policial extends Personagem{
         super.setTemArma();
     }
 
+    @Override
+    public void infecta(){
+        if (this.infectado()){
+            return;
+        }
+        super.infecta();
+        this.setImage("Infectado");
+        this.getCelula().setImageFromPersonagem();   
+    }
+    @Override
+    public void cura(){
+        if (this.infectado() == false){
+            return;
+        }
+        super.cura();
+        this.setImage("Policial");
+        this.getCelula().setImageFromPersonagem();   
+    }
 
 @Override
     public void atualizaPosicao() {
+        if(!this.estaVivo()){
+            return;
+        }
+        
         int dirLin = Jogo.getInstance().aleatorio(3)-1;
         int dirCol = Jogo.getInstance().aleatorio(3)-1;
         int oldLin = this.getCelula().getLinha();
@@ -47,6 +69,9 @@ public class Policial extends Personagem{
 
     @Override
     public void influenciaVizinhos(){
+        if(!this.estaVivo()){
+            return;
+        }
         int lin = this.getCelula().getLinha();
         int col = this.getCelula().getColuna();
         for(int l=lin-1;l<=lin+2;l++){
@@ -60,7 +85,7 @@ public class Policial extends Personagem{
                         // Se não for nulo, infecta
                         Random r = new Random();
                         int numero = r.nextInt()*4;
-                        if (p != null && (p instanceof Zumbi) && (numero == 0 || numero == 1)){
+                        if (p != null && (p instanceof Zumbi) && (numero == 0 || numero == 1 || numero == 2)){
                             p.diminuiEnergia(p.getEnergia());
                         }
                     }

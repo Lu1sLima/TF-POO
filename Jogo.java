@@ -15,6 +15,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.control.Label;
+
 import javafx.stage.Stage;
 
 public class Jogo extends Application {
@@ -22,6 +24,8 @@ public class Jogo extends Application {
     public static final int CELL_HEIGHT = 20; // COMPRIMENTO DA CELULA
     public static final int NLIN = 10; // numero de linhas de celula
     public static final int NCOL = 10; // numero de colunas de celulas
+    public Label label = new Label("Rodadas: ");
+    public  int rodadas;
 
     public static Jogo jogo = null;
 
@@ -37,6 +41,7 @@ public class Jogo extends Application {
     public Jogo(){
         jogo = this;
         random = new Random();
+        rodadas = 0;
     }
 
     public static void main(String[] args) {
@@ -96,6 +101,8 @@ public class Jogo extends Application {
         tab.setVgap(10);
         tab.setPadding(new Insets(25, 25, 25, 25));
 
+        
+
         // Monta o "tabuleiro"
         celulas = new ArrayList<>(NLIN*NCOL);
         for (int lin = 0; lin < NLIN; lin++) {
@@ -126,7 +133,7 @@ public class Jogo extends Application {
         }
 
         // Cria 2 Zumbis aleatórios
-        for(int i=0;i<2;i++){
+        for(int i=0;i<5;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -139,7 +146,7 @@ public class Jogo extends Application {
         }
 
         // Cria 2 Medicos Aleatorios
-        for(int i=0;i<5;i++){
+        for(int i=0;i<2;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -151,7 +158,7 @@ public class Jogo extends Application {
             }
         }
 
-        for(int i=0;i<2;i++){
+        for(int i=0;i<3;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -165,23 +172,33 @@ public class Jogo extends Application {
 
         // Define o botao que avança a simulação
         Button avanca = new Button("NextStep");
-        avanca.setOnAction(e->avancaSimulacao());
+        avanca.setOnAction(
+            e-> {avancaSimulacao();
+            label.setText("Rodadas: "+Integer.toString(rodadas));
+            }
+            );
         // Define outros botoes
-        
-        // Monta a cena e exibe
-        HBox hb = new HBox(10);
+          HBox hb = new HBox(10);
         hb.setAlignment(Pos.CENTER);
         hb.setPadding(new Insets(25, 25, 25, 25));
         hb.getChildren().add(tab);
-        hb.getChildren().add(avanca);      
+        hb.getChildren().add(avanca);
+        hb.getChildren().add(label);
+
         
         Scene scene = new Scene(hb);
         primaryStage.setScene(scene);
         primaryStage.show();
+        
+        // Monta a cena e exibe
+      
+
+
     }
 
     public void avancaSimulacao(){
         // Avança um passo em todos os personagens
+            rodadas++;
         personagens.forEach(p->{
             p.atualizaPosicao();
             p.verificaEstado();
@@ -193,11 +210,24 @@ public class Jogo extends Application {
                     .filter(p->!(p instanceof Zumbi))
                     .filter(p->p.estaVivo())
                     .count();
+
+          long ZombieVivos = personagens
+                    .stream()
+                    .filter(p->(p instanceof Zumbi))
+                    .filter(p->p.estaVivo())
+                    .count();
         if (vivos == 0){
             Alert msgBox = new Alert(AlertType.INFORMATION);
             msgBox.setHeaderText("Fim de Jogo");
-            msgBox.setContentText("Todos os boboes morreram!");
-            msgBox.show();
+            msgBox.setContentText("Todos os humanos morreram!");
+            msgBox.showAndWait();
+            System.exit(0);
+        }
+        else if (ZombieVivos == 0){
+            Alert msgBox = new Alert(AlertType.INFORMATION);
+            msgBox.setHeaderText("Fim de Jogo ");
+            msgBox.setContentText("Todos os zombies morreram!");
+            msgBox.showAndWait();
             System.exit(0);
         }
     }

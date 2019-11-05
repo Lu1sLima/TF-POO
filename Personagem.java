@@ -11,7 +11,10 @@ public abstract class Personagem {
         Jogo.getInstance().getCelula(linInicial, colInicial).setPersonagem(this);
         this.infectado = false;
         this.temArma = false;
+       
     }
+
+    
 
     public int getEnergia(){
         return energia;
@@ -37,6 +40,8 @@ public abstract class Personagem {
             energia = 0;
         }
     }
+
+
 
     public boolean infectado(){
         return infectado;
