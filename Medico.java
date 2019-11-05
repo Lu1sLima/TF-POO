@@ -1,10 +1,35 @@
-public class Zumbi extends Personagem {
-    public Zumbi(int linInicial,int colInicial){
-        super(10,"Zumbi",linInicial,colInicial);
+public class Medico extends Personagem {
+    public Medico(int linInicial, int colInicial) {
+        super(30, "Medico", linInicial, colInicial);
+    }
+   
+   
+   
+   
+    // TODA CLASSE PERSONAGEM SEM SER OS ZUMBIS DEVEM IMPLEMENTAR O METODO INFECTA E CURA NO MESMO ESTILO DESSES
+    @Override
+    public void infecta(){
+        if (this.infectado()){
+            return;
+        }
+        super.infecta();
+        this.setImage("Infectado");
+        this.getCelula().setImageFromPersonagem();   
+    }
+    @Override
+    public void cura(){
+        if (this.infectado() == false){
+            return;
+        }
+        super.cura();
+        this.setImage("Medico");
+        this.getCelula().setImageFromPersonagem();   
     }
 
+    // END
+
     @Override
-    public void atualizaPosicao() {
+    public void atualizaPosicao() { // ALGORITMO PRA MOVIMENTACAO RANDOM DE UM EM UM
         int dirLin = Jogo.getInstance().aleatorio(3)-1;
         int dirCol = Jogo.getInstance().aleatorio(3)-1;
         int oldLin = this.getCelula().getLinha();
@@ -27,6 +52,7 @@ public class Zumbi extends Personagem {
 
     @Override
     public void influenciaVizinhos() {
+        
         int lin = this.getCelula().getLinha();
         int col = this.getCelula().getColuna();
         for(int l=lin-1;l<=lin+1;l++){ // se trocar o condicional do for, aumenta o range de contato 
@@ -38,18 +64,38 @@ public class Zumbi extends Personagem {
                         // Recupera o personagem da célula vizinha
                         Personagem p = Jogo.getInstance().getCelula(l,c).getPersonagem();
                         // Se não for nulo, infecta
-                        if (p != null){
-                            p.infecta();
+                        if (p != null && !(p instanceof Zumbi)){
+                            p.cura();
                         }
                     }
                 }
             }
         }
-        
+
+
+
     }
 
     @Override
     public void verificaEstado() {
-        // Como não sofre influencia de ninguém, o estado nunca muda
+        // Se esta morto retorna
+        if (!this.estaVivo()){
+            return;
+        }
+        // Se esta infectado perde energia a cada passo
+        if (this.infectado()) {
+            diminuiEnergia(2);
+            // Se não tem mais energia morre
+            if (this.getEnergia() == 0) {
+                this.setImage("Morto");
+                this.getCelula().setImageFromPersonagem();
+            }
+        }
     }
+    
+    
+    
+    
+    
+
 }

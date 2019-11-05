@@ -1,8 +1,11 @@
 public class Bobao extends Personagem {
     public Bobao(int linInicial, int colInicial) {
-        super(10, "Normal", linInicial, colInicial);
+        super(30, "Normal", linInicial, colInicial); // int energiaInicial, String imagemInicial,int linInicial,int colInicial
     }
 
+
+
+    // TODA CLASSE PERSONAGEM SEM SER OS ZUMBIS DEVEM IMPLEMENTAR O METODO INFECTA E CURA NO MESMO ESTILO DESSES
     @Override
     public void infecta(){
         if (this.infectado()){
@@ -12,6 +15,19 @@ public class Bobao extends Personagem {
         this.setImage("Infectado");
         this.getCelula().setImageFromPersonagem();   
     }
+
+    @Override
+    public void cura(){
+        if (this.infectado() == false){
+            return;
+        }
+        super.cura();
+        this.setImage("Normal");
+        this.getCelula().setImageFromPersonagem();   
+    }
+
+    // END
+
 
     @Override
     public void atualizaPosicao() {

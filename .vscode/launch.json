@@ -1,0 +1,11 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - Jogo",
+            "request": "launch",
+            "mainClass": "Jogo",
+            "projectName": "TF-POO_48ebcfa0"
+        }
+    ]
+}
