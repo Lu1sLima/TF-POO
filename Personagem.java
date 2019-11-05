@@ -3,16 +3,26 @@ public abstract class Personagem {
     private int energia;
     private boolean infectado;
     private Celula celula;
+    private boolean temArma;
 
     public Personagem(int energiaInicial, String imagemInicial,int linInicial,int colInicial){
         this.imagem = imagemInicial;
         this.energia = energiaInicial;
         Jogo.getInstance().getCelula(linInicial, colInicial).setPersonagem(this);
         this.infectado = false;
+        this.temArma = false;
     }
 
     public int getEnergia(){
         return energia;
+    }
+
+    public boolean getTemArma(){
+        return this.temArma;
+    }
+
+    public void setTemArma(){
+        this.temArma = true;
     }
 
     public void incrementaEnergia(int valor){
@@ -43,6 +53,7 @@ public abstract class Personagem {
     public boolean estaVivo(){
         return getEnergia() > 0;
     }
+
 
     public String getImage(){
         return imagem;

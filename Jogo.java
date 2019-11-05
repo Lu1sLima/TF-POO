@@ -70,6 +70,8 @@ public class Jogo extends Application {
         imagens.put("Vazio", aux);
         aux = new Image("file:Imagens\\img7.jpg");
         imagens.put("Medico", aux);
+        aux = new Image("file:Imagens\\img4.jpg");
+        imagens.put("Policial", aux);
 
 
 
@@ -144,6 +146,18 @@ public class Jogo extends Application {
                 int col = random.nextInt(NCOL);
                 if (this.getCelula(lin, col).getPersonagem() == null){
                     personagens.add(new Medico(lin,col));
+                    posOk = true;
+                }
+            }
+        }
+
+        for(int i=0;i<2;i++){
+            boolean posOk = false;
+            while(!posOk){
+                int lin = random.nextInt(NLIN);
+                int col = random.nextInt(NCOL);
+                if (this.getCelula(lin, col).getPersonagem() == null){
+                    personagens.add(new Policial(lin,col));
                     posOk = true;
                 }
             }
