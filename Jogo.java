@@ -26,8 +26,15 @@ public class Jogo extends Application {
     public static final int CELL_HEIGHT = 35; // COMPRIMENTO DA CELULA
     public static final int NLIN = 10; // numero de linhas de celula
     public static final int NCOL = 10; // numero de colunas de celulas
+    public static final int qntdadeZumbi = 10;
+    public static final int qntdadeMedico = 7;
+    public static final int qntdadePolicial = 0;
+    public static final int qntdadeBoboes = 0;
+
+
+
     public Label label = new Label("Rodadas: ");
-    public Label lSalvos = new Label("");
+    public Label lSalvos = new Label("Salvos: ");
     public  int rodadas;
 
     public static Jogo jogo = null;
@@ -131,11 +138,8 @@ public class Jogo extends Application {
 
 
 
-        // Cria 2 boboes aleatorios
-
-
-
-        for(int i=0;i<1;i++){
+        // Cria boboes aleatorios
+        for(int i=0;i<qntdadeBoboes;i++){
             // Lembrte: quando um personagem é criado ele se vincula
             // automaticamente na célula indicada nos parametros
             // linha e coluna (ver o construtor de Personagem)
@@ -150,8 +154,8 @@ public class Jogo extends Application {
             }
         }
 
-        // Cria 2 Zumbis aleatórios
-        for(int i=0;i<1;i++){
+        // Cria Zumbis aleatórios
+        for(int i=0;i<qntdadeZumbi;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -163,8 +167,8 @@ public class Jogo extends Application {
             }
         }
 
-        // Cria 2 Medicos Aleatorios
-        for(int i=0;i<20;i++){
+        // Cria Medicos Aleatorios
+        for(int i=0;i<qntdadeMedico;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -176,7 +180,8 @@ public class Jogo extends Application {
             }
         }
 
-        for(int i=0;i<1;i++){
+        // Cria Policiais Aleatorios
+        for(int i=0;i<qntdadePolicial;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -234,9 +239,9 @@ public class Jogo extends Application {
         // Verifica se o jogo acabou
         long vivos = getPersonagens()
                     .stream()
-                    .filter(p->!(p instanceof Zumbi))
+                    .filter(p->(!(p instanceof Zumbi) && !(p instanceof SafeZone)))
                     .filter(p->p.estaVivo())
-                    .count();
+                    .count() ;
 
           long ZombieVivos = getPersonagens()
                     .stream()

@@ -59,6 +59,8 @@ public abstract class Personagem {
         return getEnergia() > 0;
     }
 
+    
+
 
     public String getImage(){
         return imagem;

@@ -8,7 +8,8 @@ public class SafeZone extends Personagem{
     
 
     public SafeZone(int linInicial,int colInicial){
-        super(10,"Safe",linInicial,colInicial);
+        super(0,"Safe",linInicial,colInicial);
+        
     }
 
     public static int getSalvos(){
