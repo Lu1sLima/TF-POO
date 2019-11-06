@@ -84,8 +84,8 @@ public class Policial extends Personagem{
                         Personagem p = Jogo.getInstance().getCelula(l,c).getPersonagem();
                         // Se não for nulo, infecta
                         Random r = new Random();
-                        int numero = r.nextInt(2);
-                        if (p != null && (p instanceof Zumbi) &&  numero == 1){
+                        int numero = r.nextInt(5);
+                        if (p != null && (p instanceof Zumbi) &&  (numero == 0 || numero == 1)){
                             p.diminuiEnergia(p.getEnergia());
                         }
                     }
