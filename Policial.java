@@ -69,7 +69,7 @@ public class Policial extends Personagem{
 
     @Override
     public void influenciaVizinhos(){
-        if(!this.estaVivo() && this.infectado()){
+        if(!this.estaVivo() || this.infectado()){
             return;
         }
         int lin = this.getCelula().getLinha();
