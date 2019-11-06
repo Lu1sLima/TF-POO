@@ -20,8 +20,8 @@ import javafx.scene.control.Label;
 import javafx.stage.Stage;
 
 public class Jogo extends Application {
-    public static final int CELL_WIDTH = 20; // LARGURA DA CELULA
-    public static final int CELL_HEIGHT = 20; // COMPRIMENTO DA CELULA
+    public static final int CELL_WIDTH = 35; // LARGURA DA CELULA
+    public static final int CELL_HEIGHT = 35; // COMPRIMENTO DA CELULA
     public static final int NLIN = 10; // numero de linhas de celula
     public static final int NCOL = 10; // numero de colunas de celulas
     public Label label = new Label("Rodadas: ");
@@ -63,19 +63,19 @@ public class Jogo extends Application {
         imagens = new HashMap<>();
 
         // Armazena as imagens dos personagens
-        Image aux = new Image("file:Imagens\\img1.jpg");
+        Image aux = new Image("file:Imagens\\bobaoEdited.jpg");
         imagens.put("Normal", aux);
-        aux = new Image("file:Imagens\\img2.jpg");
+        aux = new Image("file:Imagens\\doenteEdited.jpg");
         imagens.put("Infectado", aux);
-        aux = new Image("file:Imagens\\img8.jpg");
+        aux = new Image("file:Imagens\\zombieEdited.jpg");
         imagens.put("Zumbi", aux);
-        aux = new Image("file:Imagens\\img6.jpg");
+        aux = new Image("file:Imagens\\deadEdited.jpg");
         imagens.put("Morto", aux);
         aux = new Image("file:Imagens\\back.jpg");
         imagens.put("Vazio", aux);
-        aux = new Image("file:Imagens\\img7.jpg");
+        aux = new Image("file:Imagens\\medicEdited.jpg");
         imagens.put("Medico", aux);
-        aux = new Image("file:Imagens\\img4.jpg");
+        aux = new Image("file:Imagens\\policialEdited.jpg");
         imagens.put("Policial", aux);
 
 
