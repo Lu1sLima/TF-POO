@@ -6,18 +6,20 @@ import java.util.Map;
 import java.util.Random;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.control.Label;
-
 import javafx.stage.Stage;
+import javafx.collections.ObservableList; //mainsterPLAY
+
 
 public class Jogo extends Application {
     public static final int CELL_WIDTH = 35; // LARGURA DA CELULA
@@ -25,6 +27,7 @@ public class Jogo extends Application {
     public static final int NLIN = 10; // numero de linhas de celula
     public static final int NCOL = 10; // numero de colunas de celulas
     public Label label = new Label("Rodadas: ");
+    public Label lSalvos = new Label("");
     public  int rodadas;
 
     public static Jogo jogo = null;
@@ -77,6 +80,8 @@ public class Jogo extends Application {
         imagens.put("Medico", aux);
         aux = new Image("file:Imagens\\policialEdited.jpg");
         imagens.put("Policial", aux);
+        aux = new Image("file:Imagens\\img5.jpg");
+        imagens.put("Safe", aux);
 
 
 
@@ -116,8 +121,21 @@ public class Jogo extends Application {
         // Cria a lista de personagens
         personagens = new ArrayList<>(NLIN*NCOL);
         
+
+
+        //Cria safezone
+        personagens.add(new SafeZone(0,0));
+        personagens.add(new SafeZone(0,1));
+        personagens.add(new SafeZone(1,0));
+        personagens.add(new SafeZone(1,1));
+
+
+
         // Cria 2 boboes aleatorios
-        for(int i=0;i<2;i++){
+
+
+
+        for(int i=0;i<1;i++){
             // Lembrte: quando um personagem é criado ele se vincula
             // automaticamente na célula indicada nos parametros
             // linha e coluna (ver o construtor de Personagem)
@@ -133,7 +151,7 @@ public class Jogo extends Application {
         }
 
         // Cria 2 Zumbis aleatórios
-        for(int i=0;i<5;i++){
+        for(int i=0;i<1;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -146,7 +164,7 @@ public class Jogo extends Application {
         }
 
         // Cria 2 Medicos Aleatorios
-        for(int i=0;i<2;i++){
+        for(int i=0;i<20;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -158,7 +176,7 @@ public class Jogo extends Application {
             }
         }
 
-        for(int i=0;i<3;i++){
+        for(int i=0;i<1;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
@@ -175,6 +193,7 @@ public class Jogo extends Application {
         avanca.setOnAction(
             e-> {avancaSimulacao();
             label.setText("Rodadas: "+Integer.toString(rodadas));
+            lSalvos.setText("Salvos: "+Integer.toString(SafeZone.getSalvos()));
             }
             );
         // Define outros botoes
@@ -184,6 +203,7 @@ public class Jogo extends Application {
         hb.getChildren().add(tab);
         hb.getChildren().add(avanca);
         hb.getChildren().add(label);
+        hb.getChildren().add(lSalvos);
 
         
         Scene scene = new Scene(hb);
@@ -194,24 +214,31 @@ public class Jogo extends Application {
       
 
 
+
+
+    }
+
+
+    public ObservableList<Personagem> getPersonagens(){
+        return FXCollections.observableList(personagens);
     }
 
     public void avancaSimulacao(){
         // Avança um passo em todos os personagens
             rodadas++;
-        personagens.forEach(p->{
+            getPersonagens().forEach(p->{
             p.atualizaPosicao();
             p.verificaEstado();
             p.influenciaVizinhos();
         });
         // Verifica se o jogo acabou
-        long vivos = personagens
+        long vivos = getPersonagens()
                     .stream()
                     .filter(p->!(p instanceof Zumbi))
                     .filter(p->p.estaVivo())
                     .count();
 
-          long ZombieVivos = personagens
+          long ZombieVivos = getPersonagens()
                     .stream()
                     .filter(p->(p instanceof Zumbi))
                     .filter(p->p.estaVivo())

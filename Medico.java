@@ -70,7 +70,7 @@ public class Medico extends Personagem {
                         // Recupera o personagem da célula vizinha
                         Personagem p = Jogo.getInstance().getCelula(l,c).getPersonagem();
                         // Se não for nulo, infecta
-                        if (p != null && p.estaVivo() &&!(p instanceof Zumbi)){
+                        if (p != null && p.estaVivo() &&!(p instanceof Zumbi) && !(p instanceof SafeZone)){
                             p.cura();
                         }
                     }
