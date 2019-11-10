@@ -1,5 +1,6 @@
 import java.util.Random;
 public class Policial extends Personagem{
+    private static int zMortos = 0;
     public Policial(int linInicial, int colInicial){
         super(15, "Policial", linInicial, colInicial);
         super.setTemArma();
@@ -65,6 +66,13 @@ public class Policial extends Personagem{
                 this.getCelula().setImageFromPersonagem();
             }
         }
+
+    }
+    /**
+     * @return the zMortos
+     */
+    public static int getzMortos() {
+        return zMortos;
     }
 
     @Override
@@ -84,9 +92,10 @@ public class Policial extends Personagem{
                         Personagem p = Jogo.getInstance().getCelula(l,c).getPersonagem();
                         // Se não for nulo, infecta
                         Random r = new Random();
-                        int numero = r.nextInt(5);
-                        if (p != null && (p instanceof Zumbi) &&  (numero == 0 || numero == 1)){
+                        int numero = r.nextInt(6);
+                        if (p != null && (p instanceof Zumbi) &&  (numero == 0 || numero == 1) && p.estaVivo()){
                             p.diminuiEnergia(p.getEnergia());
+                            zMortos++;
                         }
                     }
                 }

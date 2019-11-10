@@ -7,6 +7,7 @@ import java.util.Random;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList; //mainsterPLAY
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,24 +18,26 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.collections.ObservableList; //mainsterPLAY
 
 
 public class Jogo extends Application {
     public static final int CELL_WIDTH = 35; // LARGURA DA CELULA
     public static final int CELL_HEIGHT = 35; // COMPRIMENTO DA CELULA
-    public static final int NLIN = 10; // numero de linhas de celula
-    public static final int NCOL = 10; // numero de colunas de celulas
     public static final int qntdadeZumbi = 10;
     public static final int qntdadeMedico = 7;
-    public static final int qntdadePolicial = 0;
+    public static final int qntdadePolicial = 3;
     public static final int qntdadeBoboes = 0;
+    public static final int NLIN = (int)(qntdadeZumbi * 1.50); // numero de linhas de celula
+    public static final int NCOL = (int)(qntdadeZumbi * 1.50); // numero de colunas de celulas
 
 
 
-    public Label label = new Label("Rodadas: ");
-    public Label lSalvos = new Label("Salvos: ");
+    public Text label = new Text("Rodadas: ");
+    public Text lSalvos = new Text("Salvos: ");
+    public Text ZumbisMortos = new Text();
     public  int rodadas;
 
     public static Jogo jogo = null;
@@ -199,16 +202,30 @@ public class Jogo extends Application {
             e-> {avancaSimulacao();
             label.setText("Rodadas: "+Integer.toString(rodadas));
             lSalvos.setText("Salvos: "+Integer.toString(SafeZone.getSalvos()));
+            ZumbisMortos.setText("Zumbis mortos: "+Policial.getzMortos());
             }
             );
+
+
+
+            VBox vb = new VBox(10);
+            vb.setAlignment(Pos.CENTER);
+            vb.getChildren().add(avanca);
+            vb.getChildren().add(label);
+            vb.getChildren().add(lSalvos);
+            vb.getChildren().add(ZumbisMortos);
+    
+
+
         // Define outros botoes
           HBox hb = new HBox(10);
         hb.setAlignment(Pos.CENTER);
         hb.setPadding(new Insets(25, 25, 25, 25));
         hb.getChildren().add(tab);
-        hb.getChildren().add(avanca);
-        hb.getChildren().add(label);
-        hb.getChildren().add(lSalvos);
+        hb.getChildren().add(vb);
+        // hb.getChildren().add(label);
+        // hb.getChildren().add(lSalvos);
+
 
         
         Scene scene = new Scene(hb);
@@ -251,14 +268,15 @@ public class Jogo extends Application {
         if (vivos == 0){
             Alert msgBox = new Alert(AlertType.INFORMATION);
             msgBox.setHeaderText("Fim de Jogo");
-            msgBox.setContentText("Todos os humanos morreram!");
+            msgBox.setContentText("Nao ha mais humanos em perigo!\n"+SafeZone.getSalvos()+" Humanos foram salvos.\n"+(qntdadeZumbi - Policial.getzMortos())+ " Zumbis ainda ficaram a solta.\n"+
+            Policial.getzMortos()+" Zumbis foram mortos.");
             msgBox.showAndWait();
             System.exit(0);
         }
         else if (ZombieVivos == 0){
             Alert msgBox = new Alert(AlertType.INFORMATION);
             msgBox.setHeaderText("Fim de Jogo ");
-            msgBox.setContentText("Todos os zombies morreram!");
+            msgBox.setContentText("Todos os zombies morreram!\n"+(vivos+SafeZone.getSalvos())+" humanos continuaram vivos.\n"+Policial.getzMortos()+" Zumbis foram mortos.");
             msgBox.showAndWait();
             System.exit(0);
         }
