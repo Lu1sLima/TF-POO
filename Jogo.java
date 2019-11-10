@@ -80,8 +80,10 @@ public class Jogo extends Application {
         imagens.put("Normal", aux);
         aux = new Image("file:Imagens\\doenteEdited.jpg");
         imagens.put("Infectado", aux);
-        aux = new Image("file:Imagens\\zombieEdited.jpg");
+        aux = new Image("file:Imagens\\Ghoul.gif");
         imagens.put("Zumbi", aux);
+        aux = new Image("file:Imagens\\ghoulDead.png");
+        imagens.put("DeadZumbi", aux);
         aux = new Image("file:Imagens\\deadEdited.jpg");
         imagens.put("Morto", aux);
         aux = new Image("file:Imagens\\back.jpg");

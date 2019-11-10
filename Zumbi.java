@@ -60,7 +60,7 @@ public class Zumbi extends Personagem {
     @Override
     public void verificaEstado() {
          if (this.getEnergia() == 0) {
-                this.setImage("Morto");
+                this.setImage("DeadZumbi");
                 this.getCelula().setImageFromPersonagem();
             }
     }
