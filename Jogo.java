@@ -26,12 +26,12 @@ import javafx.stage.Stage;
 public class Jogo extends Application {
     public static final int CELL_WIDTH = 35; // LARGURA DA CELULA
     public static final int CELL_HEIGHT = 35; // COMPRIMENTO DA CELULA
-    public static final int qntdadeZumbi = 10;
-    public static final int qntdadeMedico = 7;
-    public static final int qntdadePolicial = 3;
-    public static final int qntdadeBoboes = 0;
-    public static final int NLIN = (int)(qntdadeZumbi * 1.50); // numero de linhas de celula
-    public static final int NCOL = (int)(qntdadeZumbi * 1.50); // numero de colunas de celulas
+    public static final int qntdadeZumbi = 1;
+    public static final int qntdadeMedico = 0;
+    public static final int qntdadePolicial = 0;
+    public static final int qntdadeBoboes = 30;
+    public static final int NLIN = (int)(qntdadeZumbi * 15); // numero de linhas de celula
+    public static final int NCOL = (int)(qntdadeZumbi * 15); // numero de colunas de celulas
 
 
 
@@ -82,7 +82,7 @@ public class Jogo extends Application {
         imagens.put("Infectado", aux);
         aux = new Image("file:Imagens\\Ghoul.gif");
         imagens.put("Zumbi", aux);
-        aux = new Image("file:Imagens\\ghoulDead.png");
+        aux = new Image("file:Imagens\\ghoulDeadS.png");
         imagens.put("DeadZumbi", aux);
         aux = new Image("file:Imagens\\deadEdited.jpg");
         imagens.put("Morto", aux);
@@ -159,18 +159,30 @@ public class Jogo extends Application {
             }
         }
 
-        // Cria Zumbis aleatórios
-        for(int i=0;i<qntdadeZumbi;i++){
+            for(int i=0;i<qntdadeZumbi;i++){
             boolean posOk = false;
             while(!posOk){
                 int lin = random.nextInt(NLIN);
                 int col = random.nextInt(NCOL);
                 if (this.getCelula(lin, col).getPersonagem() == null){
-                    personagens.add(new Zumbi(lin,col));
+                    personagens.add(new SmartZombie(lin,col));
                     posOk = true;
                 }
             }
         }
+
+        // Cria Zumbis aleatórios
+        // for(int i=0;i<qntdadeZumbi;i++){
+        //     boolean posOk = false;
+        //     while(!posOk){
+        //         int lin = random.nextInt(NLIN);
+        //         int col = random.nextInt(NCOL);
+        //         if (this.getCelula(lin, col).getPersonagem() == null){
+        //             personagens.add(new Zumbi(lin,col));
+        //             posOk = true;
+        //         }
+        //     }
+        // }
 
         // Cria Medicos Aleatorios
         for(int i=0;i<qntdadeMedico;i++){
@@ -258,19 +270,19 @@ public class Jogo extends Application {
         // Verifica se o jogo acabou
         long vivos = getPersonagens()
                     .stream()
-                    .filter(p->(!(p instanceof Zumbi) && !(p instanceof SafeZone)))
+                    .filter(p->(!(p instanceof SmartZombie) && !(p instanceof SafeZone)))
                     .filter(p->p.estaVivo())
                     .count() ;
 
           long ZombieVivos = getPersonagens()
                     .stream()
-                    .filter(p->(p instanceof Zumbi))
+                    .filter(p->(p instanceof SmartZombie))
                     .filter(p->p.estaVivo())
                     .count();
         if (vivos == 0){
             Alert msgBox = new Alert(AlertType.INFORMATION);
             msgBox.setHeaderText("Fim de Jogo");
-            msgBox.setContentText("Nao ha mais humanos em perigo!\n"+SafeZone.getSalvos()+" Humanos foram salvos.\n"+(qntdadeZumbi - Policial.getzMortos())+ " Zumbis ainda ficaram a solta.\n"+
+            msgBox.setContentText("Os humanos em campo foram mortos!\n"+SafeZone.getSalvos()+" Humanos foram salvos.\n"+(qntdadeZumbi - Policial.getzMortos())+ " Zumbis ainda ficaram a solta.\n"+
             Policial.getzMortos()+" Zumbis foram mortos.");
             msgBox.showAndWait();
             System.exit(0);

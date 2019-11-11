@@ -93,7 +93,8 @@ public class Policial extends Personagem{
                         // Se não for nulo, infecta
                         Random r = new Random();
                         int numero = r.nextInt(6);
-                        if (p != null && (p instanceof Zumbi) &&  (numero == 0 || numero == 1) && p.estaVivo()){
+                        if (p != null && (p instanceof SmartZombie) &&  (numero == 0 || numero == 1) && p.estaVivo()){
+                            System.out.println("Policial atirando em: LINHA = ["+p.getCelula().getLinha()+"] COLUNA = ["+p.getCelula().getColuna()+"]");
                             p.diminuiEnergia(p.getEnergia());
                             zMortos++;
                         }
