@@ -1,1 +1,1 @@
-![Historia](https://i.imgur.com/JwSrcmb.png)
+![Historia](https://i.imgur.com/8CpsvID.png)
