@@ -1,1 +1,1 @@
-![Historia](http://prntscr.com/pv63pr)
+![Historia](https://i.imgur.com/JwSrcmb.png)
