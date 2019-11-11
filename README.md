@@ -2,7 +2,7 @@
 <p align="center">
   
   
-  - [x] Criar Zumbi Inteligente (teste)
+  1. - [x] Criar Zumbi Inteligente (teste)
   - [ ] Criar Policial Inteligente
   - [ ] Criar Pessoa(Bobão) Inteligente
   - [ ] Mudar a imagem da SafeZone
