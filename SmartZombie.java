@@ -135,6 +135,7 @@ public class SmartZombie extends Personagem{
                         // Se não for nulo, infecta
                         if (p != null && !(p instanceof SafeZone) && !(p instanceof SmartZombie)){
                             p.infecta();
+                            alvo = defineAlvo();
                         }
                     }
                 }

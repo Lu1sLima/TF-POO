@@ -26,12 +26,12 @@ import javafx.stage.Stage;
 public class Jogo extends Application {
     public static final int CELL_WIDTH = 35; // LARGURA DA CELULA
     public static final int CELL_HEIGHT = 35; // COMPRIMENTO DA CELULA
-    public static final int qntdadeZumbi = 1;
-    public static final int qntdadeMedico = 0;
-    public static final int qntdadePolicial = 0;
-    public static final int qntdadeBoboes = 30;
-    public static final int NLIN = (int)(qntdadeZumbi * 15); // numero de linhas de celula
-    public static final int NCOL = (int)(qntdadeZumbi * 15); // numero de colunas de celulas
+    public static final int qntdadeZumbi = 2;
+    public static final int qntdadeMedico = 2;
+    public static final int qntdadePolicial = 2;
+    public static final int qntdadeBoboes = 2;
+    public static final int NLIN = (int)(10); // numero de linhas de celula
+    public static final int NCOL = (int)(10); // numero de colunas de celulas
 
 
 
