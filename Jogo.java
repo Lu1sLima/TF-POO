@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PrimitiveIterator;
 import java.util.Random;
 
 import javafx.application.Application;
@@ -111,12 +112,22 @@ public class Jogo extends Application {
         loadImagens();
 
         // Configura a interface com o usuario
-        primaryStage.setTitle("Simulador de Zumbis");
+
+
+
+        primaryStage.setTitle("Simulador de Zumbi");
         GridPane tab = new GridPane();
         tab.setAlignment(Pos.CENTER);
         tab.setHgap(10);
         tab.setVgap(10);
         tab.setPadding(new Insets(25, 25, 25, 25));
+
+        primaryStage.setTitle("Teste");
+        GridPane inicio = new GridPane();
+        inicio.setAlignment(Pos.CENTER);
+        inicio.setHgap(10);
+        inicio.setVgap(10);
+        inicio.setPadding(new Insets(25, 25, 25, 25));
 
         
 
@@ -210,7 +221,47 @@ public class Jogo extends Application {
             }
         }
 
+        // criando elementos da primeira pagina
+        Button iniciar = new Button("START");
+        iniciar.setMaxSize(150,150);
+
+        Button back = new Button("Back");
+        back.setMaxSize(150,150);
+
+        Button historia = new Button("CONTEXT");
+        historia.setMaxSize(150,150);
+
+        
+
+        
+        
+        //criando layout da primeira pagina
+        VBox um = new VBox(10);
+        um.setAlignment(Pos.CENTER);
+        um.getChildren().add(iniciar);
+        um.getChildren().add(historia);
+
+        Text texto = new Text("aaa");
+        VBox dois = new VBox(10);
+        dois.setAlignment(Pos.CENTER);
+        dois.getChildren().add(texto);
+        dois.getChildren().add(back);
+
+        
+        
+
+        
+        
+        // criando first scene
+        Scene primeira = new Scene(um,500,500);
+        Scene scene2 = new Scene(dois,500,500);
+
+
+
+
         // Define o botao que avança a simulação
+        
+
         Button avanca = new Button("NextStep");
         avanca.setOnAction(
             e-> {avancaSimulacao();
@@ -228,6 +279,8 @@ public class Jogo extends Application {
             vb.getChildren().add(label);
             vb.getChildren().add(lSalvos);
             vb.getChildren().add(ZumbisMortos);
+            vb.getChildren().add(back);
+
     
 
 
@@ -241,9 +294,12 @@ public class Jogo extends Application {
         // hb.getChildren().add(lSalvos);
 
 
-        
-        Scene scene = new Scene(hb);
-        primaryStage.setScene(scene);
+        Scene segunda = new Scene(hb);
+       
+        iniciar.setOnAction(e -> primaryStage.setScene(segunda));
+        historia.setOnAction(e -> primaryStage.setScene(scene2));
+        back.setOnAction(e-> primaryStage.setScene(primeira));
+        primaryStage.setScene(primeira);
         primaryStage.show();
         
         // Monta a cena e exibe
