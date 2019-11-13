@@ -30,7 +30,7 @@ public class Jogo extends Application {
     public static final int qntdadeZumbi = 2;
     public static final int qntdadeMedico = 2;
     public static final int qntdadePolicial = 2;
-    public static final int qntdadeBoboes = 2;
+    public static final int qtdPessoa = 2;
     public static final int NLIN = (int)(10); // numero de linhas de celula
     public static final int NCOL = (int)(10); // numero de colunas de celulas
 
@@ -155,7 +155,7 @@ public class Jogo extends Application {
 
 
         // Cria boboes aleatorios
-        for(int i=0;i<qntdadeBoboes;i++){
+        for(int i=0;i<qtdPessoa;i++){
             // Lembrte: quando um personagem é criado ele se vincula
             // automaticamente na célula indicada nos parametros
             // linha e coluna (ver o construtor de Personagem)
@@ -164,7 +164,7 @@ public class Jogo extends Application {
                 int lin = random.nextInt(NLIN);
                 int col = random.nextInt(NCOL);
                 if (this.getCelula(lin, col).getPersonagem() == null){
-                    personagens.add(new Bobao(lin,col));
+                    personagens.add(new Pessoa(lin,col));
                     posOk = true;
                 }
             }
