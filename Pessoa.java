@@ -1,6 +1,13 @@
 public class Pessoa extends Personagem {
-    public Pessoa(int linInicial, int colInicial) {
-        super(10, "Normal", linInicial, colInicial); // int energiaInicial, String imagemInicial,int linInicial,int colInicial
+    public Pessoa(int energia, int linInicial, int colInicial, boolean infected) {
+        super(energia, "Normal", linInicial, colInicial); // int energiaInicial, String imagemInicial,int linInicial,int colInicial
+        if(infected){
+            infecta();
+        }
+        if(energia == 0){
+            this.setImage("Morto");
+            this.getCelula().setImageFromPersonagem();
+        }
     }
 
 

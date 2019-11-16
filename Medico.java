@@ -1,10 +1,14 @@
 public class Medico extends Personagem {
-    public Medico(int linInicial, int colInicial) {
-        super(10, "Medico", linInicial, colInicial);
+    public Medico(int energia, int linInicial, int colInicial, boolean infectado) {
+        super(energia, "Medico", linInicial, colInicial);
+        if(infectado){
+            infecta();
+        }
+        if(energia == 0){
+            this.setImage("Morto");
+            this.getCelula().setImageFromPersonagem();
+        }
     }
-   
-   
-   
    
     // TODA CLASSE PERSONAGEM SEM SER OS ZUMBIS DEVEM IMPLEMENTAR O METODO INFECTA E CURA NO MESMO ESTILO DESSES
     @Override

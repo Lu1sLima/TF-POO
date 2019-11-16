@@ -1,6 +1,8 @@
+import java.io.Serializable;
+
 import javafx.scene.image.ImageView;
 
-public class Celula extends javafx.scene.control.Button {
+public class Celula extends javafx.scene.control.Button implements Serializable{
     private Personagem personagem;
     private int linha;
     private int coluna;

@@ -6,8 +6,8 @@ public class SmartZombie extends Personagem{
 
 
 
-    public SmartZombie(int linInicial, int colInicial){
-        super(10, "Zumbi", linInicial, colInicial);
+    public SmartZombie(int energia, int linInicial, int colInicial){
+        super(energia, "Zumbi", linInicial, colInicial);
         alvo = null;
     }
 

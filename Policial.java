@@ -1,9 +1,16 @@
 import java.util.Random;
 public class Policial extends Personagem{
-    private static int zMortos = 0;
-    public Policial(int linInicial, int colInicial){
-        super(15, "Policial", linInicial, colInicial);
+    public static int zMortos = 0;
+    public Policial(int energia, int linInicial, int colInicial, boolean infectado){
+        super(energia, "Policial", linInicial, colInicial);
         super.setTemArma();
+        if(infectado){
+            infecta();
+        }
+        if(energia == 0){
+            this.setImage("Morto");
+            this.getCelula().setImageFromPersonagem();
+        }
     }
 
     @Override

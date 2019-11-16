@@ -1,10 +1,14 @@
-public abstract class Personagem {
+import java.io.Serializable;
+
+public abstract class Personagem implements Serializable{
     private String imagem; // Identificador da imagem
     private int energia;
     private boolean infectado;
     private Celula celula;
     private boolean temArma;
 
+
+    public Personagem(){}
     public Personagem(int energiaInicial, String imagemInicial,int linInicial,int colInicial){
         this.imagem = imagemInicial;
         this.energia = energiaInicial;
