@@ -26,6 +26,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.stage.Screen;
 
 
 public class Jogo extends Application {
@@ -89,7 +90,7 @@ public class Jogo extends Application {
         imagens = new HashMap<>();
 
         // Armazena as imagens dos personagens
-        Image aux = new Image("file:Imagens\\bobaoEdited.jpg");
+        Image aux = new Image("file:Imagens\\bobao.gif");
         imagens.put("Normal", aux);
         aux = new Image("file:Imagens\\doenteEdited.jpg");
         imagens.put("Infectado", aux);
@@ -337,10 +338,16 @@ public class Jogo extends Application {
         hb.getChildren().add(vb);
 
 
+        int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+        int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+
         Scene scene = new Scene(hb);
-        primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
+        // primaryStage.setFullScreen(true);
         primaryStage.show();
+        primaryStage.setHeight(screenHeight);
+        primaryStage.setWidth(screenWidth);
+        primaryStage.setMaximized(true);
     }
 
     private void save(){
