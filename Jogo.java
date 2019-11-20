@@ -27,11 +27,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
+import javafx.scene.control.TextField;
 
 
 public class Jogo extends Application {
-    public static final int CELL_WIDTH = 35; // LARGURA DA CELULA
-    public static final int CELL_HEIGHT = 35; // COMPRIMENTO DA CELULA
+    public static final int CELL_WIDTH = 25; // LARGURA DA CELULA
+    public static final int CELL_HEIGHT = 25; // COMPRIMENTO DA CELULA
     public static final int qntdadeZumbi = 5;
     public static final int qntdadeMedico = 2;
     public static final int qntdadePolicial = 2;
@@ -39,6 +40,8 @@ public class Jogo extends Application {
     public static final int NLIN = (int)(10); // numero de linhas de celula
     public static final int NCOL = (int)(10); // numero de colunas de celulas
     // public GridPane tab = new GridPane();
+    int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
+    int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
 
 
 
@@ -134,14 +137,13 @@ public class Jogo extends Application {
         iniciar.setMaxSize(100,100);
         iniciar.setOnAction(
             e -> {
-                newGame(primaryStage);
+                input(primaryStage);
             }
         );
 
         Button historia = new Button("CONTEXT");
         historia.setMaxSize(100,100);
         
-
         // Scene nova = new Scene(tab);
 
         Button loadGame = new Button("CONTINUE");
@@ -167,18 +169,9 @@ public class Jogo extends Application {
 
         Scene scene = new Scene(um);
         primaryStage.setScene(scene);
-        // primaryStage.setWidth(500);
-        // primaryStage.setHeight(500);
         primaryStage.setMaximized(true);
         primaryStage.show();
 
-
-       
-        // iniciar.setOnAction(e -> primaryStage.setScene(segunda));
-        // historia.setOnAction(e -> save());
-        // back.setOnAction(e-> primaryStage.setScene(primeira));
-        // primaryStage.setScene(primeira);
-        // primaryStage.show();
         
         // Monta a cena e exibe
       
@@ -259,19 +252,6 @@ public class Jogo extends Application {
             }
         }
 
-        // Cria Zumbis aleatórios
-        // for(int i=0;i<qntdadeZumbi;i++){
-        //     boolean posOk = false;
-        //     while(!posOk){
-        //         int lin = random.nextInt(NLIN);
-        //         int col = random.nextInt(NCOL);
-        //         if (this.getCelula(lin, col).getPersonagem() == null){
-        //             personagens.add(new Zumbi(lin,col));
-        //             posOk = true;
-        //         }
-        //     }
-        // }
-
         // Cria Medicos Aleatorios
         for(int i=0;i<qntdadeMedico;i++){
             boolean posOk = false;
@@ -338,8 +318,7 @@ public class Jogo extends Application {
         hb.getChildren().add(vb);
 
 
-        int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
-        int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
+
 
         Scene scene = new Scene(hb);
         primaryStage.setScene(scene);
@@ -348,6 +327,54 @@ public class Jogo extends Application {
         primaryStage.setHeight(screenHeight);
         primaryStage.setWidth(screenWidth);
         primaryStage.setMaximized(true);
+    }
+
+    public void input(Stage primaryStage){
+
+        GridPane tab = new GridPane();
+        primaryStage.setTitle("Menu de Opcoes");
+        tab.setAlignment(Pos.CENTER);
+        tab.setHgap(10);
+        tab.setVgap(10);
+        tab.setPadding(new Insets(25, 25, 25, 25));
+
+
+        TextField userTextField;
+        Button start = new Button("  START    ");
+        start.setMaxSize(100, 100);
+        start.setOnAction(
+            e ->{
+                newGame(primaryStage);
+            }
+        );
+        Button back = new Button("  BACK  ");
+        back.setMaxSize(100, 100);
+        back.setOnAction(
+            e ->{
+                start(primaryStage);
+            }
+        );
+
+        VBox vb = new VBox(10);
+        vb.setAlignment(Pos.CENTER);
+        vb.getChildren().add(start);
+        vb.getChildren().add(back);
+
+
+
+        HBox hb = new HBox(10);
+        hb.setAlignment(Pos.CENTER);
+        hb.getChildren().add(vb);
+        hb.getChildren().add(tab);
+
+        Scene scene = new Scene(hb);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.setHeight(screenHeight);
+        primaryStage.setWidth(screenWidth);
+        primaryStage.setMaximized(true);
+        
+
     }
 
     private void save(){
@@ -449,13 +476,7 @@ public class Jogo extends Application {
                 personagens.add(p1);
             }
         }
-        // for (Celula celula : celulasCarregadas) {
-        //     tab.add(celula, celula.getColuna(), celula.getLinha());
-        // }
 
-
-
-        // salvosC = sf.getSalvos();
         Button back = new Button("  Back  ");
         back.setOnAction(
             e ->{
@@ -497,9 +518,11 @@ public class Jogo extends Application {
 
 
         Scene scene = new Scene(hb);
-        primaryStage.setMaximized(true);
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setHeight(screenHeight);
+        primaryStage.setWidth(screenWidth);
+        primaryStage.setMaximized(true);
 
 
         
