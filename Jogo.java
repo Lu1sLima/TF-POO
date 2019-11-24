@@ -1,4 +1,6 @@
 
+import javafx.event.ActionEvent; 
+import javafx.event.EventHandler; 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -20,6 +22,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -33,10 +36,10 @@ import javafx.scene.control.TextField;
 public class Jogo extends Application {
     public static final int CELL_WIDTH = 25; // LARGURA DA CELULA
     public static final int CELL_HEIGHT = 25; // COMPRIMENTO DA CELULA
-    public static final int qntdadeZumbi = 5;
-    public static final int qntdadeMedico = 2;
-    public static final int qntdadePolicial = 2;
-    public static final int qtdPessoa = 5;
+    public static  int qntdadeZumbi = 2;
+    public static  int qntdadeMedico = 2;
+    public static  int qntdadePolicial = 2;
+    public static  int qntdadePessoa = 2;
     public static final int NLIN = (int)(10); // numero de linhas de celula
     public static final int NCOL = (int)(10); // numero de colunas de celulas
     // public GridPane tab = new GridPane();
@@ -225,7 +228,7 @@ public class Jogo extends Application {
 
 
         // Cria boboes aleatorios
-        for(int i=0;i<qtdPessoa;i++){
+        for(int i=0;i<qntdadePessoa;i++){
             // Lembrte: quando um personagem é criado ele se vincula
             // automaticamente na célula indicada nos parametros
             // linha e coluna (ver o construtor de Personagem)
@@ -339,31 +342,153 @@ public class Jogo extends Application {
         tab.setPadding(new Insets(25, 25, 25, 25));
 
 
-        TextField userTextField;
-        Button start = new Button("  START    ");
+        
+        Button start = new Button("START");
         start.setMaxSize(100, 100);
         start.setOnAction(
             e ->{
                 newGame(primaryStage);
             }
         );
-        Button back = new Button("  BACK  ");
+        Button back = new Button("BACK");
         back.setMaxSize(100, 100);
         back.setOnAction(
             e ->{
                 start(primaryStage);
             }
         );
+            // DROPDOWN INICIO
 
-        VBox vb = new VBox(10);
+        Integer comboNumeros[] = {0,1,2,3,4,5,6,7,8,9,10};
+        Integer comboNumerosZumbi[] = {1,2,3,4,5,6,7,8,9,10};
+        
+
+        Random random = new Random();
+        
+        
+        //DROPDOWN ZOMBIE
+
+        ComboBox comboBox = new ComboBox(FXCollections 
+        .observableArrayList(comboNumerosZumbi));
+        comboBox.getItems().add("Random");
+        comboBox.setValue("" + qntdadeZumbi);
+
+        EventHandler<ActionEvent> event = 
+        new EventHandler<ActionEvent>() { 
+  public void handle(ActionEvent e) 
+  {     
+        if(comboBox.getValue().equals("Random")){
+            qntdadeZumbi = random.nextInt(9);
+            qntdadeZumbi += 1; // sempre tera um zumbi
+        }else{
+            qntdadeZumbi = (Integer)comboBox.getValue();
+        }
+      
+  } 
+};      
+        comboBox.setOnAction(event);
+        //END DROPDOWN ZOMBIE 
+
+        //DROPDOWN Medico
+
+         ComboBox comboBox1 = new ComboBox(FXCollections 
+        .observableArrayList(comboNumeros));
+
+         comboBox1.getItems().add("Random");
+         comboBox1.setValue("" + qntdadeMedico);
+ 
+         EventHandler<ActionEvent> event1 = 
+         new EventHandler<ActionEvent>() { 
+   public void handle(ActionEvent e) 
+   {     
+         if(comboBox1.getValue().equals("Random")){
+             qntdadeMedico = random.nextInt(10);
+         }else{
+             qntdadeMedico = (Integer)comboBox1.getValue();
+         }
+       
+   } 
+ };      
+         comboBox1.setOnAction(event1);
+         //END DROPDOWN Medico
+
+          //DROPDOWN Bobao
+
+          ComboBox comboBox2 = new ComboBox(FXCollections 
+          .observableArrayList(comboNumeros));
+  
+           comboBox2.getItems().add("Random");
+           comboBox2.setValue("" + qntdadePessoa);
+   
+           EventHandler<ActionEvent> event2 = 
+           new EventHandler<ActionEvent>() { 
+     public void handle(ActionEvent e) 
+     {     
+           if(comboBox2.getValue().equals("Random")){
+               qntdadePessoa = random.nextInt(10);
+           }else{
+               qntdadePessoa = (Integer)comboBox2.getValue();
+           }
+         
+     } 
+   };      
+           comboBox2.setOnAction(event2);
+           //END DROPDOWN Bobao
+
+
+            //DROPDOWN Policial
+
+         ComboBox comboBox3 = new ComboBox(FXCollections 
+         .observableArrayList(comboNumeros));
+ 
+          comboBox3.getItems().add("Random");
+          comboBox3.setValue("" + qntdadePolicial);
+  
+          EventHandler<ActionEvent> event3 = 
+          new EventHandler<ActionEvent>() { 
+    public void handle(ActionEvent e) 
+    {     
+          if(comboBox3.getValue().equals("Random")){
+              qntdadePolicial = random.nextInt(10);
+          }else{
+              qntdadePolicial = (Integer)comboBox3.getValue();
+          }
+        
+    } 
+  };      
+          comboBox3.setOnAction(event3);
+          //END DROPDOWN Policial
+
+
+
+
+
+
+
+        //DROP DOWN FIM
+
+
+        VBox vb = new VBox(15);
         vb.setAlignment(Pos.CENTER);
+        vb.getChildren().add(new Text("Quantidade de Zombies"));
+        vb.getChildren().add(comboBox);  
+        vb.getChildren().add(new Text("Quantidade de Medicos"));
+        vb.getChildren().add(comboBox1);
+        vb.getChildren().add(new Text("Quantidade de Boboes"));
+        vb.getChildren().add(comboBox2);
+        vb.getChildren().add(new Text("Quantidade de Policiais"));
+        vb.getChildren().add(comboBox3);      
+          
         vb.getChildren().add(start);
         vb.getChildren().add(back);
+        
+
 
 
 
         HBox hb = new HBox(10);
         hb.setAlignment(Pos.CENTER);
+        
         hb.getChildren().add(vb);
         hb.getChildren().add(tab);
 
