@@ -24,6 +24,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -34,14 +35,14 @@ import javafx.scene.control.TextField;
 
 
 public class Jogo extends Application {
-    public static final int CELL_WIDTH = 25; // LARGURA DA CELULA
-    public static final int CELL_HEIGHT = 25; // COMPRIMENTO DA CELULA
+    public static final int CELL_WIDTH = 50; // LARGURA DA CELULA
+    public static final int CELL_HEIGHT = 50; // COMPRIMENTO DA CELULA
     public static  int qntdadeZumbi = 2;
     public static  int qntdadeMedico = 2;
     public static  int qntdadePolicial = 2;
     public static  int qntdadePessoa = 2;
-    public static final int NLIN = (int)(10); // numero de linhas de celula
-    public static final int NCOL = (int)(10); // numero de colunas de celulas
+    public static final int NLIN = (int)(15); // numero de linhas de celula
+    public static final int NCOL = (int)(15); // numero de colunas de celulas
     // public GridPane tab = new GridPane();
     int screenWidth = (int) Screen.getPrimary().getBounds().getWidth();
     int screenHeight = (int) Screen.getPrimary().getBounds().getHeight();
@@ -106,18 +107,18 @@ public class Jogo extends Application {
         imagens.put("DeadZumbi", aux);
         aux = new Image("file:Imagens\\deadEdited.jpg");
         imagens.put("Morto", aux);
-        aux = new Image("file:Imagens\\back.jpg");
+        aux = new Image("file:Imagens\\Black_Marble_Floor.gif");
         imagens.put("Vazio", aux);
         aux = new Image("file:Imagens\\medicEdited.jpg");
         imagens.put("Medico", aux);
         aux = new Image("file:Imagens\\policialEdited.jpg");
         imagens.put("Policial", aux);
-        aux = new Image("file:Imagens\\img5.jpg");
+        aux = new Image("file:Imagens\\White_Flag.gif");
         imagens.put("Safe", aux);
 
 
 
-        // Armazena a imagem da celula ula
+        // Armazena a imagem da celula nula
         imagens.put("Null", null);
     }
 
@@ -136,7 +137,7 @@ public class Jogo extends Application {
         tab.setPadding(new Insets(10, 10, 10, 10));
 
         // criando elementos da primeira pagina
-        Button iniciar = new Button("NEW GAME");
+        Button iniciar = new Button("NOVO JOGO");
         iniciar.setMaxSize(100,100);
         iniciar.setOnAction(
             e -> {
@@ -144,12 +145,17 @@ public class Jogo extends Application {
             }
         );
 
-        Button historia = new Button("CONTEXT");
+        Button historia = new Button("HISTORIA");
         historia.setMaxSize(100,100);
+        historia.setOnAction(
+            e -> {
+                mostraHistoria();
+            }
+        );
         
         // Scene nova = new Scene(tab);
 
-        Button loadGame = new Button("CONTINUE");
+        Button loadGame = new Button("CONTINUAR");
         loadGame.setMaxSize(100, 100);
         loadGame.setOnAction(
             e -> {
@@ -175,16 +181,11 @@ public class Jogo extends Application {
         primaryStage.setMaximized(true);
         primaryStage.show();
 
-        
-        // Monta a cena e exibe
-      
-
-
-
-
     }
 
+
     private void newGame(Stage primaryStage){
+
         // Carrega imagens
         rodadas = 0;
         salvosC = 0;
@@ -194,8 +195,6 @@ public class Jogo extends Application {
         loadImagens();
 
         // Configura a interface com o usuario
-
-
         GridPane tab = new GridPane();
         primaryStage.setTitle("Simulador de Zumbi");
         tab.setAlignment(Pos.CENTER);
@@ -282,7 +281,7 @@ public class Jogo extends Application {
         }
 
         
-        Button back = new Button("  Back  ");
+        Button back = new Button(" VOLTAR ");
         back.setOnAction(
             e ->{
                 start(primaryStage);
@@ -291,7 +290,7 @@ public class Jogo extends Application {
         label.setText("Rodadas: "+Integer.toString(rodadas));
         lSalvos.setText("Salvos: "+salvosC);
         ZumbisMortos.setText("Zumbis mortos: "+ZombiesMortos);
-        Button avanca = new Button("NextStep");
+        Button avanca = new Button("AVANCAR");
         avanca.setOnAction(
             e-> {avancaSimulacao();
             label.setText("Rodadas: "+Integer.toString(rodadas));
@@ -300,7 +299,7 @@ public class Jogo extends Application {
             }
             );
         
-        Button save = new Button("  Save  ");
+        Button save = new Button(" SALVAR ");
         save.setOnAction(
             e -> {save();}
         );
@@ -332,6 +331,7 @@ public class Jogo extends Application {
         primaryStage.setMaximized(true);
     }
 
+
     public void input(Stage primaryStage){
 
         GridPane tab = new GridPane();
@@ -343,22 +343,22 @@ public class Jogo extends Application {
 
 
         
-        Button start = new Button("START");
-        start.setMaxSize(100, 100);
+        Button start = new Button("INICIAR JOGO");
+        start.setMaxSize(250, 150);
         start.setOnAction(
             e ->{
                 newGame(primaryStage);
             }
         );
-        Button back = new Button("BACK");
-        back.setMaxSize(100, 100);
+        Button back = new Button("VOLTAR");
+        back.setMaxSize(250, 150);
         back.setOnAction(
             e ->{
                 start(primaryStage);
             }
         );
-            // DROPDOWN INICIO
 
+            // DROPDOWN INICIO
         Integer comboNumeros[] = {0,1,2,3,4,5,6,7,8,9,10};
         Integer comboNumerosZumbi[] = {1,2,3,4,5,6,7,8,9,10};
         
@@ -375,8 +375,9 @@ public class Jogo extends Application {
 
         EventHandler<ActionEvent> event = 
         new EventHandler<ActionEvent>() { 
-  public void handle(ActionEvent e) 
-  {     
+
+
+    public void handle(ActionEvent e){     
         if(comboBox.getValue().equals("Random")){
             qntdadeZumbi = random.nextInt(9);
             qntdadeZumbi += 1; // sempre tera um zumbi
@@ -384,13 +385,12 @@ public class Jogo extends Application {
             qntdadeZumbi = (Integer)comboBox.getValue();
         }
       
-  } 
+    } 
 };      
         comboBox.setOnAction(event);
         //END DROPDOWN ZOMBIE 
 
         //DROPDOWN Medico
-
          ComboBox comboBox1 = new ComboBox(FXCollections 
         .observableArrayList(comboNumeros));
 
@@ -399,8 +399,7 @@ public class Jogo extends Application {
  
          EventHandler<ActionEvent> event1 = 
          new EventHandler<ActionEvent>() { 
-   public void handle(ActionEvent e) 
-   {     
+        public void handle(ActionEvent e){     
          if(comboBox1.getValue().equals("Random")){
              qntdadeMedico = random.nextInt(10);
          }else{
@@ -437,7 +436,6 @@ public class Jogo extends Application {
 
 
             //DROPDOWN Policial
-
          ComboBox comboBox3 = new ComboBox(FXCollections 
          .observableArrayList(comboNumeros));
  
@@ -461,29 +459,25 @@ public class Jogo extends Application {
 
 
 
-
-
-
-
         //DROP DOWN FIM
-
+        HBox buttonsBox = new HBox(10);
+        buttonsBox.setAlignment(Pos.CENTER);
+        buttonsBox.getChildren().add(start);
+        buttonsBox.getChildren().add(back);
 
         VBox vb = new VBox(15);
         vb.setAlignment(Pos.CENTER);
-        vb.getChildren().add(new Text("Quantidade de Zombies"));
+        vb.getChildren().add(new Text("Quantidade de Zombies:"));
         vb.getChildren().add(comboBox);  
-        vb.getChildren().add(new Text("Quantidade de Medicos"));
+        vb.getChildren().add(new Text("Quantidade de Medicos:"));
         vb.getChildren().add(comboBox1);
-        vb.getChildren().add(new Text("Quantidade de Boboes"));
+        vb.getChildren().add(new Text("Quantidade de Pessoas:"));
         vb.getChildren().add(comboBox2);
-        vb.getChildren().add(new Text("Quantidade de Policiais"));
-        vb.getChildren().add(comboBox3);      
-          
-        vb.getChildren().add(start);
-        vb.getChildren().add(back);
+        vb.getChildren().add(new Text("Quantidade de Policiais:"));
+        vb.getChildren().add(comboBox3);
+        vb.getChildren().add(new Text("       "));     
+        vb.getChildren().add(buttonsBox);
         
-
-
 
 
         HBox hb = new HBox(10);
@@ -554,7 +548,6 @@ public class Jogo extends Application {
         loadImagens();
 
         // Configura a interface com o usuario
-
         rodadas = numeros.get(0);
         SafeZone.salvos = numeros.get(1);
         Policial.zMortos = numeros.get(2);
@@ -658,6 +651,21 @@ public class Jogo extends Application {
 
     public ObservableList<Personagem> getPersonagens(){
         return FXCollections.observableList(personagens);
+    }
+
+    public void mostraHistoria(){
+        Image img = new Image("file:Imagens\\historiOficial2.jpg");
+        ImageView imgView = new ImageView(img);
+        Alert msgBox = new Alert(AlertType.INFORMATION);
+        msgBox.setHeaderText("Historia");
+        msgBox.setContentText("    Colorado, em Clearview, infelizmente, declara estado de emergencia global. "+
+        "Os medicos que ficaram responsaveis de executar a vacina que fora projetada para curar os agentes que retornaram da estacao espacial de marte, todos com as celulas parcialmente modificadas, nao obtiveram sucesso. Lamentavelmente os astronautas trouxeram consigo uma combinacao quimica indescritivel, ate o momento. "+
+        "Mas sabe-se que, quando o virus atravessa a camada de ozonio e entra em contato com o CO2 mais o orgao sensorial humano (celula de Merckel), tal combinacao transformou os agentes em seres mortos vivos. O que começara com 700 agentes, hoje, proliferou e infectou 3/4 da populacao mundial."+
+        "    Nesse pronunciamento, a ONU insiste, e questao de tempo para a humanidade ser exterminada, se nao tomarmos as devidas precaucoes. Felizmente, quatro honrados Cientistas da PUC, juntamente com o que ha de mais sofisticado no 3 milenio, desenvolveram um sistema simulatório e probabilistico baseado em uma Inteligencia Artificial."+
+        "O algoritmo promete ser possivel prever a reacao dos mortos vivos em determinados contextos."+
+        "Apos a massiva coleta de dados e milhares de geracoes treinadas pela I.A, o nucleo de Cientistas afirma que as caracteristicas de um cenario onde possa haver, medicos, policiais, seres humanos nao infectados, mortos vivos na simulacao e apenas uma area segura onde os Zombies nao conseguem acessar e abriga os seres humanos, e a seguinte: Zombies, por instinto perseguem todos os seres humanos. Quando chegam perto o suficiente para morder (distancia de 1 bloco da matriz) liberam um veneno e o estado de saude do infectado decresce duas unidades a cada passo, mas consegue se deslocar ate morrer."+ 
+        "Morrendo apenas se o medico nao chegar a tempo de salvar e sua energia tiver acabado. Todos os seres humanos tem 10 de energia, exceto os policiais que o colete balistico garante 16. Os medicos salvam todos infectados, sem prioridade. Os policias estao armados e nao é considerado a quantidade de municao. A probabilidade de o projetil atingir (apenas em uma distancia de 2 blocos da matriz) os Zombies e de 60%. O objetivo dos seres humanos e correr aleatoriamente, ate encontrar a area segura e entrar (distancia de 1 bloco da matriz).");
+        msgBox.showAndWait();
     }
 
     public void avancaSimulacao(){
