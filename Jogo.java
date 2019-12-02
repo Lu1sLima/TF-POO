@@ -15,7 +15,7 @@ import java.util.Random;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList; //mainsterPLAY
+import javafx.collections.ObservableList; 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -657,14 +657,11 @@ public class Jogo extends Application {
         Image img = new Image("file:Imagens\\historiOficial2.jpg");
         ImageView imgView = new ImageView(img);
         Alert msgBox = new Alert(AlertType.INFORMATION);
-        msgBox.setHeaderText("Historia");
-        msgBox.setContentText("    Colorado, em Clearview, infelizmente, declara estado de emergencia global. "+
-        "Os medicos que ficaram responsaveis de executar a vacina que fora projetada para curar os agentes que retornaram da estacao espacial de marte, todos com as celulas parcialmente modificadas, nao obtiveram sucesso. Lamentavelmente os astronautas trouxeram consigo uma combinacao quimica indescritivel, ate o momento. "+
-        "Mas sabe-se que, quando o virus atravessa a camada de ozonio e entra em contato com o CO2 mais o orgao sensorial humano (celula de Merckel), tal combinacao transformou os agentes em seres mortos vivos. O que começara com 700 agentes, hoje, proliferou e infectou 3/4 da populacao mundial."+
-        "    Nesse pronunciamento, a ONU insiste, e questao de tempo para a humanidade ser exterminada, se nao tomarmos as devidas precaucoes. Felizmente, quatro honrados Cientistas da PUC, juntamente com o que ha de mais sofisticado no 3 milenio, desenvolveram um sistema simulatório e probabilistico baseado em uma Inteligencia Artificial."+
-        "O algoritmo promete ser possivel prever a reacao dos mortos vivos em determinados contextos."+
-        "Apos a massiva coleta de dados e milhares de geracoes treinadas pela I.A, o nucleo de Cientistas afirma que as caracteristicas de um cenario onde possa haver, medicos, policiais, seres humanos nao infectados, mortos vivos na simulacao e apenas uma area segura onde os Zombies nao conseguem acessar e abriga os seres humanos, e a seguinte: Zombies, por instinto perseguem todos os seres humanos. Quando chegam perto o suficiente para morder (distancia de 1 bloco da matriz) liberam um veneno e o estado de saude do infectado decresce duas unidades a cada passo, mas consegue se deslocar ate morrer."+ 
-        "Morrendo apenas se o medico nao chegar a tempo de salvar e sua energia tiver acabado. Todos os seres humanos tem 10 de energia, exceto os policiais que o colete balistico garante 16. Os medicos salvam todos infectados, sem prioridade. Os policias estao armados e nao é considerado a quantidade de municao. A probabilidade de o projetil atingir (apenas em uma distancia de 2 blocos da matriz) os Zombies e de 60%. O objetivo dos seres humanos e correr aleatoriamente, ate encontrar a area segura e entrar (distancia de 1 bloco da matriz).");
+        msgBox.setHeaderText("LEIA COM ATENCAO");
+        msgBox.setContentText(" Zombies, por instinto perseguem todos os seres humanos. Quando chegam perto o suficiente para morder (distancia de 1 bloco da matriz) liberam um veneno e o estado de saude do infectado decresce duas unidades a cada passo, mas consegue se deslocar ate morrer."+ 
+        " Morrendo apenas se o medico nao chegar a tempo de salvar e sua energia tiver acabado. " + "                                                                                        " +
+        
+        " Todos os seres humanos tem 10 de energia, exceto os policiais que o colete balistico garante 16. Os medicos salvam todos infectados, sem prioridade. Os policias estao armados e nao e considerado a quantidade de municao. A probabilidade de o projetil atingir (apenas em uma distancia de 2 blocos da matriz) os Zombies e de 60%. O objetivo dos seres humanos e correr aleatoriamente, ate encontrar a area segura e entrar (distancia de 1 bloco da matriz).");
         msgBox.showAndWait();
     }
 
