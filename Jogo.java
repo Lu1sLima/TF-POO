@@ -145,7 +145,7 @@ public class Jogo extends Application {
             }
         );
 
-        Button historia = new Button("HISTORIA");
+        Button historia = new Button("SOBRE");
         historia.setMaxSize(100,100);
         historia.setOnAction(
             e -> {
